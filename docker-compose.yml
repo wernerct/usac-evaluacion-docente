@@ -1,0 +1,28 @@
+services:
+  db:
+    container_name: ${NameGral}-basedatos
+    image: mysql:oraclelinux9
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DBClave}
+      MYSQL_USER: ${DBUsuario}
+      MYSQL_PASSWORD: ${DBClave}
+      MYSQL_DATABASE: ${DBName}
+    volumes:
+      - ./data-db:/var/lib/mysql
+    ports:
+      - "3307:3306"
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    container_name: ${NameGral}-phpmyadmin
+    ports:
+      - 8081:80
+    depends_on:
+      - db
+    environment:
+      - PMA_HOST=db
+      #- PMA_ARBITRARY=1
+#volumes:
+#  data-db:
+#    external: true
