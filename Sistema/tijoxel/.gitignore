@@ -1,7 +1,5 @@
-data-db
-node_modules
-
 /.phpunit.cache
+/node_modules
 /public/build
 /public/hot
 /public/storage
