@@ -10,11 +10,14 @@ class ArchivoController extends Controller
     //
     public function store(Request $request)
     {
+        $request->validate([
+            'file' => 'required|mimes:pdf|max:2048',
+        ]);
         //$input = $request->all();
-        $evaluacion = $request->file('file');
-        $nombreArchivo = Str::uuid() . "." . $evaluacion->extension();
+        $file = $request->file('file');
+        $nombreArchivo = Str::uuid() . "." . $file->extension();
         $archivoPath = public_path('uploads') . '/' . $nombreArchivo;
-        $evaluacion->move($archivoPath, $nombreArchivo);
+        $file->move($archivoPath, $nombreArchivo);
         return response()->json(['imagen' => $nombreArchivo]);
     }
 }

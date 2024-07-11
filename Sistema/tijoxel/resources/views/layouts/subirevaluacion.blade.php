@@ -9,7 +9,7 @@
     <div class="md:flex md:items-center">
 
         <div class="md:w-1/2 px-10 bg-white p-6 rounded-lg shadow-xl mt-10 md:mt-0">
-            <form action="{{ route('archivo.store') }}" method="POST">
+            <form action="{{ route('subirevaluacion') }}" method="POST">
                 @csrf
                 <div class="mb-5">
                     <label for="codigocatedratico" class="mb-2 block uppercase text-gray-500 font-bold">Codigo
@@ -26,7 +26,7 @@
             </form>
         </div>
         <div class="md:w-1/2 px-10">
-            <form action="{{ route('archivo.store') }}" method="POST" enctype="multipart/form-data" id="dropzone"
+            <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data" id="dropzone"
                 class="dropzone border-dashed border-2 w-full h-96 rounded flex flex-col justify-center items-center">
                 @csrf
             </form>
