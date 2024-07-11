@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>USAC - @yield('Titulo')</title>
     <link rel="icon" href="{{ asset('images/Logo.png') }}" type="image/png">
-    @vite('resources/css/app.css')
-    <script src="asset('js/app.js')" defer></script>
+    {{-- <link rel="stylesheet" href="{{ asset('resources/css/app.css') }}"> --}}
+    {{-- @vite('resources/css/app.css')
+    <script src="asset('resources/js/app.js')" defer></script> --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 
 <body class="bg-gray-100">
@@ -20,11 +22,38 @@
                 </div>
                 <h1 class="text-3xl font-black p-1">Universidad de San Carlos</h1>
                 <div class="">
-                    <nav class="p-1 flex gap-2 ">
-                        <a class="font-bold uppercase text-gray-600 text-sm" href="#">login</a>
-                        <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('register') }}">Crear
-                            Cuenta</a>
-                    </nav>
+                    {{-- <!-- @if (auth()->user())
+<p>Autenticado</p>
+@else
+<p>No Autenticado</p>
+@endif
+                    -->
+                    --}}
+
+                    @auth
+                        <nav class="p-1 flex gap-2 ">
+                            <a class="font-bold uppercase text-gray-600 text-sm" href="#">Hola:
+                                <span class="font-normal">{{ auth()->user()->username }}
+                                </span></a>
+                            <div class="font-bold uppercase text-gray-600 text-sm">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="font-bold uppercase text-gray-600 text-sm"
+                                        href="{{ route('logout') }}">Cerrar
+                                        Sesión</button>
+                                </form>
+                            </div>
+
+                        </nav>
+                    @endauth
+                    @guest
+                        <nav class="p-1 flex gap-2 ">
+                            <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('login') }}">login</a>
+                            <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('register') }}">Crear
+                                Cuenta</a>
+                        </nav>
+                    @endguest
+
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,6 +16,9 @@ class RegisterController extends Controller
     }
     public function store(Request $request)
     {
+        //Agregar a lo que viene de $request
+        $request->request->add(['username' => Str::slug($request->username),]);
+
         $validatedData = $request->validate([
             'name' => 'required|min:5|max:50',
             'username' => 'required|unique:users|min:5|max:50',
@@ -29,13 +33,22 @@ class RegisterController extends Controller
         //return view('auth.registrer');
         User::create([
             'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->username,
-            'password' => Hash::make($request->username),
+            'username' => $request->username, #Str::slug($request->username),
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'codigocatedratico' => $request->codigocatedratico,
             'tipousuario' => 1,
             'carrera' => 1,
             'sede' => 1,
         ]);
+        //Autenticar usuario
+        auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password
+        ]);
+        //otra forma de autenticar
+        //auth()->attempt($request->only('email', 'password'));
+
+        return redirect()->route('panel');
     }
 }
