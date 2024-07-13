@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class ArchivoController extends Controller
 {
     //
+    //este controlador sirve solamente para subida del archivo/evaluacion docente
+    //para que se suba el formulario esta en el controlador de SubirEvaluacionController.php
     public function store(Request $request)
     {
         $request->validate([
@@ -16,8 +18,8 @@ class ArchivoController extends Controller
         //$input = $request->all();
         $file = $request->file('file');
         $nombreArchivo = Str::uuid() . "." . $file->extension();
-        $archivoPath = public_path('uploads') . '/' . $nombreArchivo;
+        $archivoPath = public_path('uploads'); // . '/' . $nombreArchivo
         $file->move($archivoPath, $nombreArchivo);
-        return response()->json(['imagen' => $nombreArchivo]);
+        return response()->json(['archivo' => $nombreArchivo]);
     }
 }

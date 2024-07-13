@@ -16,7 +16,6 @@ return new class extends Migration
             $table->text('descripcion');
             $table->string('archivo');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->dateTime('fecha_carga', precision: 0);
             $table->boolean('estado');
             $table->timestamps();
         });

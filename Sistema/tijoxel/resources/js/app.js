@@ -12,6 +12,25 @@ document.addEventListener("DOMContentLoaded", function () {
             dictRemoveFile: "Borrar",
             maxFiles: 1,
             uploadMultiple: false,
+            init: function () {
+                //alert("dropzone creado");
+                if (document.querySelector('[name="archivo"]').value.trim()) {
+                    const archivoPublicado = {};
+                    archivoPublicado.size = 1234;
+                    archivoPublicado.name =
+                        document.querySelector('[name="archivo"]').value;
+                    this.options.addedfile.call(this, archivoPublicado);
+                    this.options.thumbnail.call(
+                        this,
+                        archivoPublicado,
+                        `uploads/${archivoPublicado.name}`
+                    );
+                    archivoPublicado.previewElement.classList.add(
+                        "dz-success",
+                        "dz-complete"
+                    );
+                }
+            },
         });
 
         dropzone.on("sending", function (file, xhr, formData) {
@@ -20,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         dropzone.on("success", function (file, response) {
             console.log("success", response);
+            document.querySelector('[name="archivo"]').value = response.archivo;
         });
 
         dropzone.on("error", function (file, message) {

@@ -9,7 +9,7 @@
     <div class="md:flex md:items-center">
 
         <div class="md:w-1/2 px-10 bg-white p-6 rounded-lg shadow-xl mt-10 md:mt-0">
-            <form action="{{ route('subirevaluacion') }}" method="POST">
+            <form action="{{ route('guardasubirevaluacion') }}" method="POST">
                 @csrf
                 <div class="mb-5">
                     <label for="codigocatedratico" class="mb-2 block uppercase text-gray-500 font-bold">Codigo
@@ -18,6 +18,22 @@
                         class="border p-3 w-full rounded-lg @error('codigocatedratico') border-red-500 @enderror"
                         value="{{ old('codigocatedratico') }}">
                     @error('codigocatedratico')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-5">
+                    <label for="descripcion" class="mb-2 block uppercase text-gray-500 font-bold">Descripcion</label>
+                    <input id="descripcion" name="descripcion" type="text" placeholder="descripcion"
+                        class="border p-3 w-full rounded-lg @error('descripcion') border-red-500 @enderror"
+                        value="{{ old('descripcion') }}">
+                    @error('descripcion')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-5">
+                    <input name="archivo" type="hidden" value="{{ old('archivo') }}">
+
+                    @error('archivo')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
                     @enderror
                 </div>

@@ -26,5 +26,7 @@ Route::get('/panel', [PanelController::class, 'index'])->name('panel');
 Route::get('/ver', [VerEvaluacionController::class, 'index'])->name('verevaluacion');
 //para subir el formulario de la evaluacion docente, datos mas archivo
 Route::get('/subir', [SubirEvaluacionController::class, 'index'])->name('subirevaluacion');
+Route::post('/subir', [SubirEvaluacionController::class, 'store'])->name('guardasubirevaluacion');
+
 //para subir solamente el archivo pdf con DROPZONE
 Route::post('/archivo', [ArchivoController::class, 'store'])->name('upload');

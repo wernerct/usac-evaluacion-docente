@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class EvaluacionDocente extends Model
 {
     use HasFactory;
+    protected $filable = [
+        'descripcion',
+        'archivo',
+        'user_id',
+        'estado',
+    ];
 }
