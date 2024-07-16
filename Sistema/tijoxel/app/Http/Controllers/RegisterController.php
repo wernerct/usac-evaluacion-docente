@@ -37,7 +37,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'codigocatedratico' => $request->codigocatedratico,
-            'tipousuario' => 1,
+            'tipousuario' => 2, //tipo usuario 1 igual a administrador tipo usuario 2 es catedratico
             'carrera' => 1,
             'sede' => 1,
         ]);

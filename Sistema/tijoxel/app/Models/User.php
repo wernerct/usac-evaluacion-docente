@@ -49,4 +49,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function evaluaciondocente()
+    {
+        return $this->hasMany(EvaluacionDocente::class); //,'[campo foreigne]' //a la par de class, se pone una coma y el nombre del campo de la llave foranea, esto si no se llaman igual en las diferentes tablas
+        //return $this->hasMany(EvaluacionDocente::class,'codempelado'); //,'[campo foreigne]' //a la par de class, se pone una coma y el nombre del campo de la llave foranea, esto si no se llaman igual en las diferentes tablas
+    }
 }

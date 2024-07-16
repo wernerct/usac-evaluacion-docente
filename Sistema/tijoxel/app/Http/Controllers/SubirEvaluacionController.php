@@ -17,24 +17,42 @@ class SubirEvaluacionController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index(User $user)
+    public function index() //User $user
     {
         //dd(auth()->user());
-        return view('layouts.subirevaluacion');
+        $catedraticos = User::where('tipousuario', 1)->get();
+        return view('layouts.subirevaluacion', ['catedraticos' => $catedraticos]);
     }
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'descripcion' => 'required|max:255',
             'archivo' => 'required',
-            'user_id' => 'required',
+            'codigocatedratico' => 'required',
+            'estado' => 'required'
         ]);
         EvaluacionDocente::create([
             'descripcion' => $request->descripcion,
             'archivo' => $request->archivo,
-            'user_id' => $request->user_id, // auth()->user()->id
-            'estado' => 1,
+            'user_id' => $request->codigocatedratico, // auth()->user()->id
+            'estado' => $request->estado
         ]);
+        /*//otra forma de almacenar
+        $evaluacion = new EvaluacionDocente;
+        $evaluacion->descripcion = $request->descripcion;
+        $evaluacion->archivo = $request->archivo;
+        $evaluacion->codigocatedratico = $request->codigocatedratico; // auth()->user()->id
+        $evaluacion->estado = $request->estado;
+        $evaluacion->save();*/
+
+        /* // tercera forma de almacenar, pero ya deben tener la relaciones de llaves foraneas en los modelos
+        $request->user()->evaluaciondocente()->create([
+            'descripcion' => $request->descripcion,
+            'archivo' => $request->archivo,
+            'user_id' => $request->codigocatedratico, // auth()->user()->id
+            'estado' => $request->estado
+        ]);
+        */
         return redirect()->route('panel', auth()->user()->username);
     }
 }

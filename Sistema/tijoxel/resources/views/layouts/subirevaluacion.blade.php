@@ -22,6 +22,17 @@
                     @enderror
                 </div>
                 <div class="mb-5">
+                    <label for="select-user_id" class="mb-2 block uppercase text-gray-500 font-bold">Catedrático</label>
+                    <select id="select-user_id"
+                        class="border p-3 w-full rounded-lg @error('select-user_id') border-red-500 @enderror"
+                        value="{{ old('select-user_id') }}">
+                        <option value="">Seleccione un usuario</option>
+                        @foreach ($catedraticos as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-5">
                     <label for="descripcion" class="mb-2 block uppercase text-gray-500 font-bold">Descripcion</label>
                     <input id="descripcion" name="descripcion" type="text" placeholder="descripcion"
                         class="border p-3 w-full rounded-lg @error('descripcion') border-red-500 @enderror"
@@ -34,6 +45,13 @@
                     <input name="archivo" type="hidden" value="{{ old('archivo') }}">
 
                     @error('archivo')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-5">
+                    <input name="estado" type="hidden" value="1">
+
+                    @error('estado')
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
                     @enderror
                 </div>
