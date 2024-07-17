@@ -25,6 +25,7 @@ class SubirEvaluacionController extends Controller
     }
     public function store(Request $request)
     {
+        //dd('Mostrando request' . $request);
         $validatedData = $request->validate([
             'descripcion' => 'required|max:255',
             'archivo' => 'required',
