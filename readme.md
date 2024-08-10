@@ -68,6 +68,77 @@ sail npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
 
+## Carga a git
+
+```bash
+git add .
+git commit -m "comentario del commit"
+git push -u origin main # o tambien puede ser master
+
+```
+
+## Arancar servidor
+
+```bash
+#para interactuar con php
+sail artisan tinker
+
+#para crear un controller
+sail artisan make:controller ArchivoController
+
+#para hacer rollback
+sail artisan migrate:makemigrations
+sail artisan migrate:refresh
+sail artisan make:migrations
+sail artisan migrate
+
+#para hacer rollback
+sail artisan migrate:rollback
+sail artisan migrate:rollback --path /database/migrations/2024_07_11_045629_create_evaluacion_docentes_table.php
+
+
+git commit -m "comentario del commit"
+git push -u origin main # o tambien puede ser master
+
+```
+
+## usar livewire
+
+```bash
+#requerir livewire
+sail composer require livewire/livewire
+```
+
+## usar datatable
+
+```bash
+#requerir datatable
+sail composer require rappasoft/laravel-livewire-tables
+sail composer show rappasoft/laravel-livewire-tables
+#para crear componente
+sail php artisan make:datatable UsuariosTable User ##sail php artisan make:datatable [NOmbreTabla] [MOdelo]
+php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-config
+#el de la vista en la pgina no recomienda para publicar pero si se quiere pasar al español si se hace
+php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-views
+
+php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-translations
+
+php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-public
+
+#ubicacion de la creacion del componente
+#app/Livewire/UsuariosTable.php
+```
+
+## publicar lenguaju y pasarlo a español
+
+```bash
+#publicar lenguaje
+sail php artisan lang:publish
+sail composer require --dev laravel-lang/common
+sail php artisan lang:add es
+
+```
+
 ## Stay in touch
 
 - Author - [Werner Coyoy](https://kamilmysliwiec.com)

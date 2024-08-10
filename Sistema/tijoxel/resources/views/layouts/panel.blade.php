@@ -5,6 +5,8 @@
 @section('Contenido')
 
     <section class="container mx-auto mt-10">
+        @livewire('UsuariosTable')
+
         @if ($evaluaciones->count())
             <div class=" gap-6">
                 <table class="table-fixed min-w-full bg-white border">

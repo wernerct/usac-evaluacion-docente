@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReiniciarClaveController;
 use App\Http\Controllers\VerEvaluacionController;
 use App\Http\Controllers\SubirEvaluacionController;
 
@@ -29,3 +30,7 @@ Route::post('/subir', [SubirEvaluacionController::class, 'store'])->name('guarda
 Route::post('/archivo', [ArchivoController::class, 'store'])->name('upload');
 
 Route::get('/{user:username}', [PanelController::class, 'index'])->name('panel');
+
+//para cambio y reinicio de clave
+Route::post('/reinicioclave', [ReiniciarClaveController::class, 'resetpass'])->name('reset');
+Route::post('/cambioclave', [ReiniciarClaveController::class, 'changepass'])->name('change');
