@@ -119,7 +119,6 @@ sail composer show rappasoft/laravel-livewire-tables
 sail php artisan make:datatable UsuariosTable User ##sail php artisan make:datatable [NOmbreTabla] [MOdelo]
 php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-config
 #el de la vista en la pgina no recomienda para publicar pero si se quiere pasar al español si se hace
-php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-views
 
 php artisan vendor:publish --provider="Rappasoft\LaravelLivewireTables\LaravelLivewireTablesServiceProvider" --tag=livewire-tables-translations
 
