@@ -14,14 +14,16 @@ class UsuariosTable extends DataTableComponent
 {
     #protected $model = User::class; se quito el modelo porque lo queremos cargar con relaciones hasta abajo
 
+    /*funciona como el placeholder, pero tambien se puede colocar en la funcion configure.
     public function getSearchPlaceholder(): string
     {
         return 'Buscar usuarios...';
-    }
-
+    }*/
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        //$this->setSearch('name');
+        $this->setSearchPlaceholder('Buscar');
     }
 
     public function columns(): array
@@ -51,22 +53,28 @@ class UsuariosTable extends DataTableComponent
         ];
         */
         return [
-            Column::make('Codigo', 'Codigocatedratico'),
-            Column::make('Usuario', 'Username'),
+            Column::make("Id", "id")->hideIf(true),
+            Column::make('Codigo', 'Codigocatedratico')->sortable()->searchable(),
+            Column::make('Usuario', 'Username')->sortable()->searchable(),
             BooleanColumn::make('Catedratico', 'tipousuario'),
-            Column::make('Nombre', 'Name'),
-            Column::make('Correo', 'Email'),
+            Column::make('Nombre', 'Name')->sortable()->searchable(),
+            Column::make('Correo', 'Email')->sortable()->searchable(),
+            Column::make('Acciones', 'id')
+                ->format(fn($value) => view('tables.action', [
+                    'id' => $value,
+                ])),
+            /* si funciona
             ButtonGroupColumn::make('Action')
                 ->buttons([
                     LinkColumn::make('Action')
-                        ->title(fn () => 'Cargar Evaluacion')
-                        ->location(fn ($row) => route('subirevaluacion', ['QCatedratico' => $row->id]))
-                        ->attributes(fn () => ['class' => 'btn btn-blue']),/*btn-grad*/
+                        ->title(fn() => 'Cargar Evaluacion')
+                        ->location(fn($row) => route('subirevaluacion', ['QCatedratico' => $row->id])) //$row->Codigocatedratico,$row->id,dd($row->id)
+                        ->attributes(fn() => ['class' => 'btn btn-blue']),//btn-grad
                     LinkColumn::make('Action')
-                        ->title(fn () => 'Reiniciar Clave')
-                        ->location(fn ($row) => route('reset', ['QCatedratico' => $row->id]))
-                        ->attributes(fn () => ['class' => 'btn btn-green'])
-                ]),
+                        ->title(fn() => 'Reiniciar Clave')
+                        ->location(fn($row) => view('components.modal-button', ['id' => $row->id])) # route('reset', ['QCatedratico' => $row->id]))
+                        ->attributes(fn() => ['class' => 'btn btn-green'])
+                ]),*/
         ];
     }
     public function builder(): Builder

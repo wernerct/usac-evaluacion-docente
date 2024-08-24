@@ -9,48 +9,44 @@ use Illuminate\Support\Facades\Hash;
 
 class ReiniciarClaveController extends Controller
 {
+    public function index()
+    {
+        return view('auth.changepassword');
+    }
+
     public function ChangePass(Request $request)
     {
-        //Agregar a lo que viene de $request
-        $request->request->add(['username' => Str::slug($request->username),]);
-
+        $request->request->add(['username' => Str::slug($request->username)]);
         $validatedData = $request->validate([
             'password' => 'required|confirmed|min:6|max:50',
-            #'password_confirmation' => 'required|min:5|max:50',
         ]);
-        User::updated([
+        $user = auth()->user();
+        $user->update([
             'password' => Hash::make($request->password),
         ]);
-        //Autenticar usuario
-        auth()->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-        ]);
-        //otra forma de autenticar
-        //auth()->attempt($request->only('email', 'password'));
+        auth()->logout();
+        return redirect()->route('login');
+        /*
+        if (!auth()->attempt($request->only(['email', 'password']))) {
+            return back()->with('Mensaje', 'Credenciales Incorrectas');
+        }else{
 
-        return redirect()->route('panel');
+            return redirect()->route('panel', [
+                'user' => auth()->user()->username
+            ]);
+        }*/
     }
     public function ResetPass(Request $request)
     {
-        //Agregar a lo que viene de $request
-        $request->request->add(['username' => Str::slug($request->username),]);
+        //dd($request->QCatedratico);
+        $item = User::find($request->QCatedratico);
 
-        $validatedData = $request->validate([
-            'password' => 'required|confirmed|min:6|max:50',
-            #'password_confirmation' => 'required|min:5|max:50',
-        ]);
-        User::updated([
-            'password' => Hash::make($request->password),
-        ]);
-        //Autenticar usuario
-        auth()->attempt([
-            'email' => $request->email,
-            'password' => $request->password
-        ]);
-        //otra forma de autenticar
-        //auth()->attempt($request->only('email', 'password'));
-
-        return redirect()->route('panel');
+        if ($item) {
+            $item->password = Hash::make('Cunt0t0');
+            $item->save();
+            return redirect()->route('panel')->with('success', 'Contraseña restablecida correctamente');
+        } else {
+            return redirect()->route('panel')->with('error', 'Usuario no encontrado');
+        }
     }
 }

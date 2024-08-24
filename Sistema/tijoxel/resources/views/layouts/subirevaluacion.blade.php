@@ -22,18 +22,14 @@
                     @enderror
                 </div> --}}
                 <div class="mb-5">
-                    <label for="codigocatedratico" class="mb-2 block uppercase text-gray-500 font-bold">Catedrático</label>
-                    <select id="codigocatedratico" name="codigocatedratico"
-                        class="border p-3 w-full rounded-lg @error('codigocatedratico') border-red-500 @enderror"
-                        value="{{ old('codigocatedratico') }}">
-                        <option value="">Seleccione un usuario</option>
-                        @foreach ($catedraticos as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('codigocatedratico')
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
-                    @enderror
+                    <a href="#"
+                        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-blue-800 dark:border-blue-700 dark:hover:bg-blue-700">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            Codigo Catedrático: {{ $catedratico[0]->codigocatedratico }}</h5>
+                        <p class="font-normal text-gray-700 dark:text-gray-400">Nombre: {{ $catedratico[0]->name }}</p>
+                        <p class="font-normal text-gray-700 dark:text-gray-400">Usuario: {{ $catedratico[0]->username }}</p>
+                        <p class="font-normal text-gray-700 dark:text-gray-400">correo: {{ $catedratico[0]->email }}</p>
+                    </a>
                 </div>
                 <div class="mb-5">
                     <label for="descripcion" class="mb-2 block uppercase text-gray-500 font-bold">Descripcion</label>
@@ -58,6 +54,14 @@
                         <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="mb-5">
+                    <input name="catedratico_id" type="hidden" value="{{ $catedratico[0]->id }}">
+
+                    @error('catedratico_id')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <input type="submit" value="Subir Evaluación"
                     class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg">
             </form>

@@ -17,11 +17,11 @@ class SubirEvaluacionController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index() //User $user
+    public function index($QCatedratico) //User $user
     {
         //dd(auth()->user());
-        $catedraticos = User::where('tipousuario', 1)->get();
-        return view('layouts.subirevaluacion', ['catedraticos' => $catedraticos]);
+        $datosCatedratico = User::where('id', $QCatedratico)->get(); // 'Codigocatedratico'
+        return view('layouts.subirevaluacion', ['catedratico' => $datosCatedratico]);
     }
     public function store(Request $request)
     {
@@ -29,13 +29,12 @@ class SubirEvaluacionController extends Controller
         $validatedData = $request->validate([
             'descripcion' => 'required|max:255',
             'archivo' => 'required',
-            'codigocatedratico' => 'required',
             'estado' => 'required'
         ]);
         EvaluacionDocente::create([
             'descripcion' => $request->descripcion,
             'archivo' => $request->archivo,
-            'user_id' => $request->codigocatedratico, // auth()->user()->id
+            'user_id' => $request->catedratico_id, // auth()->user()->id
             'estado' => $request->estado
         ]);
         /*//otra forma de almacenar

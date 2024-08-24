@@ -16,9 +16,13 @@ class PanelController extends Controller
 
     public function index(User $user)
     {
-        //dd(auth()->user());
-        $evaluaciones = EvaluacionDocente::where('user_id', $user->id)->get();
+        //dd(auth()->user()->id);
+        $evaluaciones = EvaluacionDocente::where('user_id', auth()->user()->id)->get(); //$user->id
         //dd($evaluaciones);
-        return view('layouts.panel', ['user' => $user, 'evaluaciones' => $evaluaciones]);
+        return view('layouts.panel', [
+            'user' => auth()->user(), //$user,
+            'evaluaciones' => $evaluaciones,
+            'esadmin' => auth()->user()->tipousuario
+        ]);
     }
 }

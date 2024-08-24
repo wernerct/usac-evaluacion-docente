@@ -23,14 +23,16 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
 //para subir el formulario de la evaluacion docente, datos mas archivo
-Route::get('/subir', [SubirEvaluacionController::class, 'index'])->name('subirevaluacion');
+Route::get('/subir/{QCatedratico}', [SubirEvaluacionController::class, 'index'])->name('subirevaluacion');
 Route::post('/subir', [SubirEvaluacionController::class, 'store'])->name('guardasubirevaluacion');
 
 //para subir solamente el archivo pdf con DROPZONE
 Route::post('/archivo', [ArchivoController::class, 'store'])->name('upload');
 
-Route::get('/{user:username}', [PanelController::class, 'index'])->name('panel');
+//Route::get('/{user:username}', [PanelController::class, 'index'])->name('panel');
+Route::get('/panel', [PanelController::class, 'index'])->name('panel');
 
 //para cambio y reinicio de clave
 Route::post('/reinicioclave', [ReiniciarClaveController::class, 'resetpass'])->name('reset');
-Route::post('/cambioclave', [ReiniciarClaveController::class, 'changepass'])->name('change');
+Route::get('/cambioclave', [ReiniciarClaveController::class, 'index'])->name('change');
+Route::post('/cambioclave', [ReiniciarClaveController::class, 'ChangePass']);

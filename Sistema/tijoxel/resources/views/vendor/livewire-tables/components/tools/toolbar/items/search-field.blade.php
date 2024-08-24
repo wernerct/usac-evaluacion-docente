@@ -4,8 +4,8 @@
     'mb-3 mb-md-0 input-group' => $isBootstrap,
     'flex rounded-md shadow-sm' => $isTailwind,
 ])>
-    <input wire:model{{ $component->getSearchOptions() }}="buscar" placeholder="{{ $component->getSearchPlaceholder() }}"
-        type="text"buscar
+    <input wire:model{{ $component->getSearchOptions() }}="search" placeholder="{{ $component->getSearchPlaceholder() }}"
+        type="text"search
         {{ $attributes->merge($component->getSearchFieldAttributes())->class([
                 'block w-full border-gray-300 rounded-md shadow-sm transition duration-150 ease-in-out sm:text-sm sm:leading-5 dark:bg-gray-700 dark:text-white dark:border-gray-600 rounded-none rounded-l-md focus:ring-0 focus:border-gray-300' =>
                     $isTailwind && $component->hasSearch() && $component->getSearchFieldAttributes()['default'] ?? true,
